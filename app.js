@@ -1,8 +1,7 @@
 var express = require('express');
 var app = express();
-var routes = require("./routes/routes");
-var config = require("./config.json")
-
+var config = require("./config.json");
+var routes = require("./routes/routes")(config);
 
 app.use(bodyparser.json());
 
