@@ -1,7 +1,7 @@
 {
 	"mysql": {
 		"host":"us-cdbr-iron-east-01.cleardb.net",
-		"username": "b7ee22e8262e20",
+		"user": "b7ee22e8262e20",
 		"password": "bb0b1629",
 		"database": "heroku_808167838bb623f"
 	}
