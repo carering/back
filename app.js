@@ -3,8 +3,6 @@ var app = express();
 var config = require("./config.json");
 var routes = require("./routes/routes")(config);
 
-app.use(bodyparser.json());
-
 app.use(routes);
 
 // app.get('/', function (req, res) {
