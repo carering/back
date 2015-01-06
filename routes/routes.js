@@ -34,7 +34,7 @@ module.exports = function(config) {
 			pool.query('SELECT first_name, last_name, email, phone, address, rings, brownies from t_users where email=?', [[email]], function(err, results){
 				if(err) console.log(err);
 				console.log(results);
-				res.send("Registration information is: " + JSON.stringify(results[0])+"\n");
+				res.send(JSON.stringify(results[0]));
 			});	
 
 		});
