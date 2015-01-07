@@ -2,27 +2,45 @@ var express = require('express');
 var bodyparser = require('body-parser');
 var mysql = require('mysql');
 var async = require('async');
+var url = require('url');
 
 var router = express.Router();
 
 module.exports = function(config) {
 	var pool = mysql.createPool(config.mysql);
-	console.log(config.mysql);
+	//console.log(config.mysql);
 	router.use(bodyparser.json());
 
 	router.route("/")
 		.get(function(req,res){
 			res.send("Hello James!");
 		});
+	
+	router.route("/status")
+		.get(function(req,res){
+			console.log(url.parse("http://"+req.headers.host).port);
+			res.send("Listening on port: "+ url.parse("http://"+req.headers.host).port);
+		});		
+
+	router.route("/ring")
+		.post(function(req, res){
+			//var data = req.body;
+			var user = [["Abby Baby", "Abby Stevens", "[]", "Abby had a baby!", "James", "Please join", 0, 1]];
+			pool.query('INSERT INTO t_rings (name, center, needs, event, created, message, total_brownies, status) VALUES ? ', [user], function(err, results){
+				if(err) console.log(err);
+				console.log(results);
+				res.send("Registration information is: " + JSON.stringify(results)+"\n");
+			});	
+		});
 
 	router.route("/register")
 		.post(function(req, res){
-			var data = req.body;
-
-			pool.query('SELECT email from t_users where id=?', [[1]], function(err, results){
+			//var data = req.body;
+			var user = [["Abby", "Stevens", "abby@carering.com", "12345", "555", "12 Street Ct", "[]", 0]];
+			pool.query('INSERT INTO t_users (first_name, last_name, email, password, phone, address, rings, brownies) VALUES ? ', [user], function(err, results){
 				if(err) console.log(err);
 				console.log(results);
-				res.send("Registration information is: " + JSON.stringify(data)+"\n");
+				res.send("Registration information is: " + JSON.stringify(results)+"\n");
 			});	
 		});
 

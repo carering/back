@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var config = require("./config.json");
 var routes = require("./routes/routes")(config);
-console.log(config);
+//console.log(config);
 app.use(routes);
 
 
