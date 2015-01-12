@@ -36,7 +36,7 @@ module.exports = function(config) {
 	router.route("/register")
 		.post(function(req, res){
 			//var data = req.body;
-			var user = [["Abby", "Stevens", "abby@carering.com", "12345", "555", "12 Street Ct", "[]", 0]];
+			var user = [["Thomas", "Stevens", "tbone@carering.com", "12345", "555-555-5555", "123 Street Ct", "[]", 0]];
 			pool.query('INSERT INTO t_users (first_name, last_name, email, password, phone, address, rings, brownies) VALUES ? ', [user], function(err, results){
 				if(err) console.log(err);
 				console.log(results);
