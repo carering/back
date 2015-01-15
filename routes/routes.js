@@ -16,11 +16,8 @@ module.exports = function(config) {
 			res.send("Hello James!");
 		});
 
-	router.route("/status")
-		.get(function(req,res){
-			console.log(url.parse("http://"+req.headers.host).port);
-			res.send("Listening on port: "+ url.parse("http://"+req.headers.host).port);
-		});
+//Below are the routes for creating a ring and for
+//GETing a ring for a given id
 
 	router.route("/ring")
 		.post(function(req, res){
@@ -45,48 +42,72 @@ module.exports = function(config) {
 				 event_date, created, message, total_brownies, status, needs, invite_list, members) VALUES ? ',
 			  [ring], function(err, results){
 				  if(err) console.log(err);
-				  console.log(results);
-				  res.send(JSON.stringify(results));
+				  //console.log(results.insertId);
+				  res.send(results);
 			  });
+		})
+		.get(function(req,res){
+			pool.query('SELECT rid, name, center, creator, event,\
+				event_date, created, message, total_brownies, status, needs, invite_list, members\
+				from t_rings;', function(err,results){
+					if(err) console.log(err);
+					//console.log(results);
+					res.send(JSON.stringify(results));
+				});
 		});
 
-  router.route('/ring/:id')
+
+	router.route('/ring/:id')
 		.get(function(req,res){
 			var rid = req.params.id;
 			var sql = "SELECT rid, name, center, creator, event, event_date, created,\
-			 message, total_brownies, status, needs, invite_list, members\
-			 from t_rings\
-			 where rid = ?;"
-			 pool.query(sql,[[rid]], function(err, results){
-				console.log(results);
-				res.send(results[0]);
-			})
+			message, total_brownies, status, needs, invite_list, members\
+			from t_rings\
+			where rid = ?;"
+			pool.query(sql,[[rid]], function(err, results){
+				//console.log(results);
+				res.json(results[0]);
+			});
 		});
 
+
+//Below are the routes needed for registration and for selecting a user profile based on
+//user id number
 	router.route("/register")
 		.post(function(req, res){
 			//var data = req.body;
 			var user = [["Gymbeaux", "Jangles", "tbone@carering.com", "12345", "555-555-5555", "123 Street Ct", "[]", 0]];
 			pool.query('INSERT INTO t_users (first_name, last_name, email, password, phone, address, rings, brownies) VALUES ? ', [user], function(err, results){
+				if(err) res.send(err);
+				//console.log(results);
+				res.send(results);
+			});
+		});
+
+	router.route("/profile/:id")
+		.get(function(req, res){
+			var uid = req.params.id;
+			console.log(uid);
+			pool.query('SELECT id, first_name, last_name, email, phone, address, rings, \
+			brownies from t_users where id=?;',
+			 [[uid]], function(err, results){
+				if(err) res.send(err);
+				//console.log(results);
+				res.json(results[0]);
+			});
+		});
+
+// Get a list of all users in the db
+// Returns an array of user objects
+	router.route("/profile")
+		.get(function(req, res){
+			pool.query('SELECT id, first_name, last_name, email, phone, address, rings, \
+			brownies from t_users;',
+			function(err, results){
 				if(err) console.log(err);
-				console.log(results);
+				//console.log(results);
 				res.send(JSON.stringify(results));
 			});
-
 		});
-
-	router.route("/profile/:email")
-		.get(function(req, res){
-			var email = req.params.email;
-			console.log(email);
-
-			pool.query('SELECT first_name, last_name, email, phone, address, rings, brownies from t_users where email=?', [[email]], function(err, results){
-				if(err) console.log(err);
-				console.log(results);
-				res.send(JSON.stringify(results[0]));
-			});
-
-		});
-
 	return router;
 }
