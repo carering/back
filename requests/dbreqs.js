@@ -17,7 +17,7 @@ var body = {
   status: 1
 };
 
-//var getRingsPath = "http://localhost:3000/ring";
+
 // var getRingPath = "http://carering.herokuapp.com/ring/11";
 // var postRingPath = "http://carering.herokuapp.com/ring";
 // var getRingsPath = "http://carering.herokuapp.com/ring";
