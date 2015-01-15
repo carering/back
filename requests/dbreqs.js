@@ -2,7 +2,7 @@
 var request = require('superagent');
 
 var body = {
-  name: "James' Test Ring",
+  name: "James Rules",
   center: "James Stiehl",
   creator: "James Stiehl",
   needs: "",
@@ -17,17 +17,24 @@ var body = {
   status: 1
 };
 
-var path = "http://localhost:3000/ring/11";
-
-// request
-//   .post(path)
-//   .send(body)
-//   .end(function(err, results){
-//     console.log(results);
-//   });
+var postPath = "http://localhost:3000/ring";
+//var getPath = "http://carering.herokuapp.com/ring/11";
+//var postPath = "http://carering.herokuapp.com/ring";
+  // request
+  //   .post(postPath)
+  //   .send(body)
+  //   .end(function(err, results){
+  //     console.log(results.body);
+  //   });
+  //
+  // request
+  //   .get(getPath)
+  //   .end(function(results){
+  //     console.log(results.body);
+  //   });
 
 request
-  .get(path)
+  .get(postPath)
   .end(function(results){
     console.log(results.body);
-  })
+  });
