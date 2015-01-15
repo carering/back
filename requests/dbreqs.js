@@ -17,24 +17,45 @@ var body = {
   status: 1
 };
 
-var postPath = "http://localhost:3000/ring";
-//var getPath = "http://carering.herokuapp.com/ring/11";
-//var postPath = "http://carering.herokuapp.com/ring";
-  // request
-  //   .post(postPath)
-  //   .send(body)
-  //   .end(function(err, results){
-  //     console.log(results.body);
-  //   });
-  //
-  // request
-  //   .get(getPath)
-  //   .end(function(results){
-  //     console.log(results.body);
-  //   });
+//var getRingsPath = "http://localhost:3000/ring";
+// var getRingPath = "http://carering.herokuapp.com/ring/11";
+// var postRingPath = "http://carering.herokuapp.com/ring";
+// var getRingsPath = "http://carering.herokuapp.com/ring";
+// var getUser = "http://carering.herokuapp.com/profile/11";
+// var getUsers = "http://carering.herokuapp.com/profile";
 
-request
-  .get(postPath)
-  .end(function(results){
-    console.log(results.body);
+var getRingPath = "http://localhost:3000/ring/11";
+var postRingPath = "http://localhost:3000/ring";
+var getRingsPath = "http://localhost:3000/ring";
+var getUser = "http://localhost:3000/profile/11";
+var getUsers = "http://localhost:3000/profile";
+
+var gets = [];
+
+gets.push(getRingPath);
+gets.push(getRingsPath);
+gets.push(getUser);
+gets.push(getUsers);
+console.log(gets);
+post(postRingPath);
+
+gets.forEach(function(paths){
+  getData(paths);
+})
+
+function post(postPath){
+  request
+    .post(postPath)
+    .send(body)
+    .end(function(err, results){
+      console.log(results.body);
   });
+}
+
+function getData(postPath){
+  request
+    .get(postPath)
+    .end(function(results){
+      console.log(results.body);
+    });
+}
