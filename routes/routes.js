@@ -70,14 +70,15 @@ module.exports = function(config) {
 			});
 		});
 
-
+//TODO need to replace underscores with dashes in responses
 //Below are the routes needed for registration and for selecting a user profile based on
 //user id number
 	router.route("/register")
 		.post(function(req, res){
 			//var data = req.body;
 			var user = [["Gymbeaux", "Jangles", "tbone@carering.com", "12345", "555-555-5555", "123 Street Ct", "[]", 0]];
-			pool.query('INSERT INTO t_users (first_name, last_name, email, password, phone, address, rings, brownies) VALUES ? ', [user], function(err, results){
+			pool.query('INSERT INTO t_users (first_name, last_name, email, password, \
+				phone, address, rings, brownies) VALUES ? ', [user], function(err, results){
 				if(err) res.send(err);
 				//console.log(results);
 				res.json(results);
