@@ -24,20 +24,20 @@ var body = {
 // var getUser = "http://carering.herokuapp.com/profile/11";
 // var getUsers = "http://carering.herokuapp.com/profile";
 
-//var getRingPath = "http://localhost:3000/ring/11";
-//var postRingPath = "http://localhost:3000/ring";
+var getRingPath = "http://localhost:3000/ring/11";
+var postRingPath = "http://localhost:3000/ring";
 var getRingsPath = "http://localhost:3000/ring";
 var getUser = "http://localhost:3000/profile/11";
 var getUsers = "http://localhost:3000/profile";
 
 var gets = [];
 
-//gets.push(getRingPath);
+gets.push(getRingPath);
 gets.push(getRingsPath);
 gets.push(getUser);
 gets.push(getUsers);
-console.log(gets);
-//post(postRingPath);
+//console.log(gets);
+post(postRingPath);
 
 gets.forEach(function(paths){
   getData(paths);
@@ -56,6 +56,6 @@ function getData(postPath){
   request
     .get(postPath)
     .end(function(results){
-      console.log(results);
+      console.log(results.body);
     });
 }

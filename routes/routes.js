@@ -43,7 +43,7 @@ module.exports = function(config) {
 			  [ring], function(err, results){
 				  if(err) console.log(err);
 				  //console.log(results.insertId);
-				  res.send(results);
+				  res.json(results);
 			  });
 		})
 		.get(function(req,res){
@@ -52,7 +52,7 @@ module.exports = function(config) {
 				from t_rings;', function(err,results){
 					if(err) console.log(err);
 					//console.log(results);
-					res.send(JSON.stringify(results));
+					res.json(results);
 				});
 		});
 
@@ -80,7 +80,7 @@ module.exports = function(config) {
 			pool.query('INSERT INTO t_users (first_name, last_name, email, password, phone, address, rings, brownies) VALUES ? ', [user], function(err, results){
 				if(err) res.send(err);
 				//console.log(results);
-				res.send(results);
+				res.json(results);
 			});
 		});
 
@@ -106,7 +106,7 @@ module.exports = function(config) {
 			function(err, results){
 				if(err) console.log(err);
 				//console.log(results);
-				res.send(JSON.stringify(results));
+				res.json(results);
 			});
 		});
 	return router;
