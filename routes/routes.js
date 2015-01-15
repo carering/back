@@ -41,8 +41,6 @@ module.exports = function(config) {
 			var ring = [[name, creator, center, event, eventDate, created, message,
 			  totalBrownies, status, needs, inviteList, members]];
 
-			//var ring = [["Abby Baby", "Abby Stevens", "Abby Stevens", "Abby had a baby!",
-			//Date.now(), Date.now(), "Please join", 0, 1, "asdf", "asdafs", "asd"]];
 			pool.query('INSERT INTO t_rings (name, center, creator, event,\
 				 event_date, created, message, total_brownies, status, needs, invite_list, members) VALUES ? ',
 			  [ring], function(err, results){
@@ -68,12 +66,13 @@ module.exports = function(config) {
 	router.route("/register")
 		.post(function(req, res){
 			//var data = req.body;
-			var user = [["Abby", "Stevens", "abby@carering.com", "12345", "555", "12 Street Ct", "[]", 0]];
+			var user = [["Gymbeaux", "Jangles", "tbone@carering.com", "12345", "555-555-5555", "123 Street Ct", "[]", 0]];
 			pool.query('INSERT INTO t_users (first_name, last_name, email, password, phone, address, rings, brownies) VALUES ? ', [user], function(err, results){
 				if(err) console.log(err);
 				console.log(results);
-				res.send("Registration information is: " + JSON.stringify(results)+"\n");
+				res.send(JSON.stringify(results));
 			});
+
 		});
 
 	router.route("/profile/:email")
