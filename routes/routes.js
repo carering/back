@@ -75,16 +75,21 @@ module.exports = function(config) {
 //user id number
 	router.route("/register")
 		.post(function(req, res){
+			console.log(req);
 			var data = req.body;
 			var firstName = data.firstName;
-			var lasteName = data.lastName;
+			var lastName = data.lastName;
 			var email = data.email;
 			var password = data.password;
 			var address = data.address;
 			var phone = data.phone;
 			var user = [[firstName, lastName, email, password, phone, address, "[]", 0]];
 			//var user = [["Gymbeaux", "Jangles", "tbone@carering.com", "12345", "555-555-5555", "123 Street Ct", "[]", 0]];
-			pool.query('INSERT INTO t_users (first_name, last_name, email, password, phone, address, rings, brownies) VALUES ? ', [user], function(err, results){
+		
+			
+
+			pool.query('INSERT INTO t_users (first_name, last_name, email, password, phone, address, rings, brownies) VALUES ? ', 
+				[user], function(err, results){
 				if(err) res.send(err);
 				//console.log(results);
 				res.json(results);
