@@ -29,7 +29,7 @@ module.exports = function(config) {
 			pool.query('INSERT INTO t_rings (name, center, needs, event, created, message, total_brownies, status) VALUES ? ', [user], function(err, results){
 				if(err) console.log(err);
 				console.log(results);
-				res.send("Registration information is: " + JSON.stringify(results)+"\n");
+				res.send(JSON.stringify(results));
 			});	
 		});
 
