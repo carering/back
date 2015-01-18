@@ -70,7 +70,7 @@ module.exports = function(config) {
 			});
 		});
 
-
+//TODO need to replace underscores with dashes in responses
 //Below are the routes needed for registration and for selecting a user profile based on
 //user id number
 	router.route("/register")
